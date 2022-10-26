@@ -18,14 +18,14 @@ export const Area = ({
   ticketInterval,
   finalInterval,
 }) => {
-  const [order, setOrder] = useState([]);
-  const [kitchen, setKitchen] = useState([]);
-  const [pickup, setPickup] = useState([]);
-  const [ticket, setTicket] = useState([]);
+  const [order, setOrder] = useState([0]);
+  const [kitchen, setKitchen] = useState([0]);
+  const [pickup, setPickup] = useState([0]);
+  const [ticket, setTicket] = useState([0]);
 
   const spawnItem = (interval, func) => {
     const intervalName = setInterval(() => {
-      if (gameState) func((currArr) => [...currArr, currArr.length + 1]);
+      if (gameState) func((currArr) => [...currArr, currArr.slice(-1)[0] + 1]);
     }, interval);
     return intervalName;
   };
@@ -59,10 +59,10 @@ export const Area = ({
   };
 
   const clearAll = (intervalArr) => {
-    setOrder([]);
-    setPickup([]);
-    setKitchen([]);
-    setTicket([]);
+    setOrder([0]);
+    setPickup([0]);
+    setKitchen([0]);
+    setTicket([0]);
     intervalArr.map((interval) => clearInterval(interval));
   };
 
@@ -78,26 +78,26 @@ export const Area = ({
     <ContainerArea>
       <OrderArea>
         <Title>Order Area</Title>
-        {order.map((_) => (
-          <Customer></Customer>
+        {order.slice(1, order.length).map((value) => (
+          <Customer>{value}</Customer>
         ))}
       </OrderArea>
       <KitchenArea>
         <Title>Kitchen Area</Title>
-        {kitchen.map((_) => (
-          <Ticket></Ticket>
+        {kitchen.slice(1, order.length).map((value) => (
+          <Ticket>{value}</Ticket>
         ))}
       </KitchenArea>
       <PickupArea>
         <Title>Pickup Area</Title>
-        {pickup.map((_) => (
-          <Customer></Customer>
+        {pickup.slice(1, order.length).map((value) => (
+          <Customer>{value}</Customer>
         ))}
       </PickupArea>
       <TicketArea>
         <Title>Ticket Area</Title>
-        {ticket.map((_) => (
-          <Ticket></Ticket>
+        {ticket.slice(1, order.length).map((value) => (
+          <Ticket>{value}</Ticket>
         ))}
       </TicketArea>
     </ContainerArea>

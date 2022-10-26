@@ -53,7 +53,7 @@ export const Customer = styled.div`
   height: 50px;
   border-radius: 7px;
   margin-top: 5px;
-  background-color: black;
+  background-color: gray;
 `;
 
 export const Ticket = styled.div`
